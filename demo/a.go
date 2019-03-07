@@ -5,10 +5,10 @@ import (
 )
 
 type A struct {
-	Db  *sql.DB `di:"db"`
-	Db1 *sql.DB `di:"db"`
-	B   *B      `di:"b,prototype"`
-	B1  *B      `di:"b,prototype"`
+	Db0 *sql.DB `di:"db"`  	//单例模式
+	Db1 *sql.DB `di:"db"` 	//单例模式
+	B0  *B      `di:"b,prototype"` //工厂模式
+	B1  *B      `di:"b,prototype"` //工厂模式
 }
 
 func NewA() *A {
@@ -16,7 +16,7 @@ func NewA() *A {
 }
 
 func (p *A) Version() (string, error) {
-	rows, err := p.Db.Query("SELECT VERSION() as version")
+	rows, err := p.Db0.Query("SELECT VERSION() as version")
 	if err != nil {
 		return "", err
 	}
